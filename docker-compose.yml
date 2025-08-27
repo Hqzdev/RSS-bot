@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  rss-bot:
+    build: .
+    container_name: rss-bot
+    restart: unless-stopped
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - ADMIN_IDS=${ADMIN_IDS}
+      - DB_URL=sqlite:///data/db.sqlite3
+      - REDIS_URL=redis://redis:6379/0
+      - API_ID=${API_ID}
+      - API_HASH=${API_HASH}
+      - SESSION_ENC_KEY=${SESSION_ENC_KEY}
+      - BASE_POLL_MINUTES=${BASE_POLL_MINUTES:-10}
+      - DIGEST_CRON=${DIGEST_CRON:-"0 9 * * *"}
+      - ALLOW_LANGS=${ALLOW_LANGS:-"ru,en"}
+      - MIN_WORDS=${MIN_WORDS:-30}
+      - UTM_ON=${UTM_ON:-true}
+      - UTM_SOURCE=${UTM_SOURCE:-telegram}
+      - UTM_MEDIUM=${UTM_MEDIUM:-social}
+      - UTM_CAMPAIGN=${UTM_CAMPAIGN:-rss_auto}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    depends_on:
+      - redis
+    networks:
+      - rss-bot-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: rss-bot-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - rss-bot-network
+
+volumes:
+  redis_data:
+
+networks:
+  rss-bot-network:
+    driver: bridge

@@ -1,0 +1,40 @@
+# Core dependencies
+python-telegram-bot==20.7
+pyrogram==2.0.106
+tgcrypto==1.2.5
+aiohttp==3.9.1
+asyncio-mqtt==0.16.1
+aioredis==2.0.1
+sqlalchemy==2.0.23
+alembic==1.13.1
+apscheduler==3.10.4
+
+# RSS/Feed parsing
+feedparser==6.0.10
+readability-lxml==0.8.1
+beautifulsoup4==4.12.2
+lxml==4.9.3
+
+# Content processing
+markdown==3.5.1
+pillow==10.1.0
+python-magic==0.4.27
+hashlib-compat==1.0.0
+
+# Configuration and security
+python-dotenv==1.0.0
+cryptography==41.0.8
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# Utilities
+python-dateutil==2.8.2
+pytz==2023.3
+urllib3==2.1.0
+requests==2.31.0
+
+# Development and testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+black==23.11.0
+flake8==6.1.0
